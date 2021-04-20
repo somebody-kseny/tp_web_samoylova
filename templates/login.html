@@ -1,0 +1,21 @@
+{% extends "include/base.html"%}
+
+{% block content-header %}
+    Вход
+{% endblock content-header %}
+
+{% block content %}
+
+<div class="row py-3 mb-2" >
+      <div class="col-5">
+          <form class="form-signin">
+          <label for="inputEmail" class="sr-only mb-2">Имя пользователя</label>
+          <input id="inputEmail" class="form-control mb-4" placeholder="Имя пользователя" required autofocus>
+          <label for="inputPassword" class="sr-only mb-2">Пароль</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+          <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Войти!</button>
+      </form>
+      </div>
+  </div>
+
+{% endblock content %}

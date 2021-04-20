@@ -3,3 +3,5 @@ node_modules/
 .idea/
 .vscode/
 *.pyc
+__pycache__/
+whattodo

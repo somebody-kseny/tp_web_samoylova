@@ -1,0 +1,36 @@
+{% load static %}
+{% comment %} <link href= "{% static "css/bootstrap.min.css" %}" rel="stylesheet">
+<link href="{% static "css/mycss.css" %}" rel="stylesheet"> {% endcomment %}
+
+
+  <div class="row pt-3 pb-0 px-3 row-eq-height border border-secondary">
+      <div class="col-3 bg-light p-2">
+        <a href="{% url "user_question" pk=question.user_id %}"><img src="{% static "img/avatars/def.jpg" %}" style="width:100%" class="p-2"></a>
+      </div>
+      <div class="col-9">
+            <h3>  <a href="{% url "one_question" pk=question.id %}" class="text-dark d-inline-block text-truncate" style="text-decoration: none; max-width: 100%;">{{question.title}}</a>  </h3>
+            <p class="text-dark" style="">  {{question.shown_text}} </p>
+
+      </div>    
+  </div>
+
+  <div class="row bg-secondary p-2 mb-2 d-flex justify-content-between">
+  {% comment %} d-flex justify-content-between {% endcomment %}
+      <div class="col-3 text-center">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button btn-sm" class="btn btn-outline-light">&#9650</button>
+          <button type="button btn-sm" class="btn btn-outline-light">{{question.likes}}</button>
+          <button type="button btn-sm" class="btn btn-outline-light">&#9660</button>
+        </div>
+      </div>
+      <div class="col-7 text-truncate mt-1">
+        <p style="text-truncate">
+          {% for tag in question.tags %}
+            <span class="bg-info rounded border-info text-brand-info px-2 pb-2 pt-1 "><a href="{% url "tag_page" name_of_tag=tag%}" class="text-dark"  style="text-decoration: none;" >{{tag}}</a></span>
+          {% endfor %}
+        </p>
+      </div>
+      <div class="col-2 mt-1">
+          <p class="text-center text-truncate mb-0" style="max-width: 90%;"><a href="{% url "one_question" pk=question.id %}" class="text-dark" style="text-decoration: none;">Ответы ({{question.answers|length}})</a></p>
+      </div>
+  </div>

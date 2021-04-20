@@ -1,0 +1,8 @@
+{% extends "include/navbar.html"%}
+{% load static %}
+
+{% block auth_block %}
+        <img src="{% static "img/avatars/def.jpg" %}" height = "60" >
+        <a class="nav-link text-warning" aria-current="page" href="{% url "settings" %}">Профиль</a>
+        <a class="nav-link text-warning" aria-current="page">Выйти</a>
+{% endblock auth_block %}

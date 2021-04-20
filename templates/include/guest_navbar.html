@@ -1,0 +1,6 @@
+{% extends "include/navbar.html"%}
+
+{% block auth_block %}
+        <a class="nav-link text-warning" aria-current="page" href="{% url "login" %}">Войти</a>
+        <a class="nav-link text-warning" aria-current="page" href="{% url "signup" %}">Зарегестрироваться</a>
+{% endblock auth_block %}

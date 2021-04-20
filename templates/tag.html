@@ -1,0 +1,17 @@
+{% extends "include/base.html"%}
+
+{% block content-header %}
+   
+  Вопросы с тегом <span class="bg-info rounded border-info text-brand-info px-1 pb-1 text-dark">{{tag}}</span>
+  
+{% endblock content-header %}
+
+{% block content %}
+
+  
+    {% for question in questions %}
+      {% include "include/one_question.html" %}
+    {% endfor %}
+  
+
+{% endblock content %}

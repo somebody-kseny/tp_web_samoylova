@@ -1,0 +1,11 @@
+{% extends "include/base.html"%}
+
+{% block content-header %}
+    Новые вопросы
+{% endblock content-header %}
+
+{% block content %}
+  {% for question in questions %}
+    {% include "include/one_question.html" %}
+  {% endfor %}
+{% endblock content %}
