@@ -6,16 +6,21 @@
 
 {% block content %}
 
-<div class="row py-3 mb-2" >
-      <div class="col-5">
-          <form class="form-signin">
-          <label for="inputEmail" class="sr-only mb-2">Имя пользователя</label>
-          <input id="inputEmail" class="form-control mb-4" placeholder="Имя пользователя" required autofocus>
-          <label for="inputPassword" class="sr-only mb-2">Пароль</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
-          <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Войти!</button>
-      </form>
+<div class="row mb-2" >
+      <div class="col-3"><label for="inputEmail" class="sr-only mb-3">Имя пользователя</label></div>
+      <div class="col-auto">
+        <input id="inputEmail" class="form-control-warning mb-2" required autofocus>
+        <p class="text-danger d-none"><small>Нет такого пользователя</small></p>
       </div>
-  </div>
+</div>
+<div class="row mb-2" >
+      <div class="col-3"><label for="inputNick" class="sr-only mb-3">Пароль</label></div>
+      <div class="col-auto">
+        <input id="inputNick" class="form-control-warning mb-2" required>
+        <p class="text-danger d-none"><small>Пароль неверный</small></p>
+      </div>
+</div>
+
+<button class="btn btn-lg btn-warning btn-block mb-2" type="submit">Войти!</button>
 
 {% endblock content %}

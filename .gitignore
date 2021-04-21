@@ -5,3 +5,5 @@ node_modules/
 *.pyc
 __pycache__/
 whattodo
+templates/ненужное
+

@@ -1,6 +1,10 @@
 {% extends "include/navbar.html"%}
 
 {% block auth_block %}
-        <a class="nav-link text-warning" aria-current="page" href="{% url "login" %}">Войти</a>
-        <a class="nav-link text-warning" aria-current="page" href="{% url "signup" %}">Зарегестрироваться</a>
+        <div class="row">
+                <div class="col-auto mx-4 ml-0 text-center">
+                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "login" %}">Войти</a>
+                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "signup" %}">Зарегестрироваться</a>
+                </div>
+        </div>
 {% endblock auth_block %}

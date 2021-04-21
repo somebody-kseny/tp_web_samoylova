@@ -1,8 +1,25 @@
 {% extends "include/base.html"%}
 
+{% block content-header %}
+  Задайте свой вопрос
+{% endblock content-header %}
+
 {% block content %}
-    <h3>in ask.html</h3>
-  {% for question in questions %}
-    {% include "include/one_question.html" %}
-  {% endfor %}
+<div class="row mb-2" >
+      <div class="col-3">Название вопроса</div>
+      <div class="col-9"><textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea></div>
+</div>
+<div class="row mb-2" >
+      <div class="col-3">Текст</div>
+      <div class="col-9"><textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea></div>
+</div>
+<div class="row mb-2" >
+      <div class="col-3">Добавьте теги</div>
+      <div class="col-9">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+        <p class="text-danger d-none"><small>Теги - латиницей через запятую</small></p>
+        <button class="btn btn-lg btn-warning btn-block mt-4" type="submit">Задать вопрос!</button>
+      </div>
+</div>
+
 {% endblock content %}

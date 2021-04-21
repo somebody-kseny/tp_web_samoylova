@@ -1,8 +1,53 @@
 {% extends "include/base.html"%}
+{% load static %}
+
+{% block content-header %}
+    Регистрация
+{% endblock content-header %}
 
 {% block content %}
-    <h3>in signup.html</h3>
-  {% for question in questions %}
-    {% include "include/one_question.html" %}
-  {% endfor %}
+<div class="row mb-2" >
+      <div class="col-3"><label for="inputEmail" class="sr-only mb-3">Адрес e-mail</label></div>
+      <div class="col-auto">
+        <input id="inputEmail" class="mb-2" required autofocus>
+        <p class="text-danger d-none"><small>Неверно введен e-mail</small></p>
+      </div>
+</div>
+      
+<div class="row mb-2" >
+      <div class="col-3"><label for="inputNick" class="sr-only mb-3">Имя пользователя</label></div>
+      <div class="col-auto">
+        <input id="inputNick" class="mb-2"  required>
+        <p class="text-danger"><small>Недопустимое имя пользователя</small></p>
+      </div>
+</div>
+<div class="row mb-2" >
+      <div class="col-3"><label for="inputPassword" class="sr-only mb-3">Пароль</label></div>
+      <div class="col-auto">
+        <input type="password" id="inputPassword" class="mb-2" required>
+        <p class="text-danger d-none"><small>Слишком простой пароль</small></p>
+      </div>
+</div>
+<div class="row mb-2" >
+      <div class="col-3"><label for="repeatPassword" class="sr-only mb-3">Повторите пароль</label></div>
+      <div class="col-auto">
+        <input type="password" id="repeatPassword" class="mb-2" required>
+        <p class="text-danger d-none"><small>Введенные пароли не совпадают</small></p>
+      </div>
+</div>
+
+<div class="row">
+    <div class="col-3 text-truncate">
+        <p style="text-truncate">Загрузить аватар<p>
+    </div>
+    <div class="col-auto">
+        <button type="button" class="btn btn-outline-warning">Загрузить файл</button>
+        <p class="text-danger d-none"><small>jpg или png с соотношением сторон 1:1</small></p>
+    </div>
+    <div class="col-auto">
+        <img src="{% static "img/avatars/def.jpg" %}" style="width:35px" class="invisible">
+    </div>
+</div>
+
+<button class="btn btn-lg btn-warning btn-block mt-4" type="submit">Зарегестрироваться</button>
 {% endblock content %}

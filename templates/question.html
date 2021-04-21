@@ -10,15 +10,18 @@
       <div class="col-3 text-center bg-light p-2">
         <a href="{% url "user_question" pk=question.user_id %}"><img src="{% static "img/avatars/def.jpg" %}" style="width:100%" class="p-2"></a>
         <p class="text-center text-truncate" style="max-width: 90%;"><a href="{% url "user_question" pk=question.user_id %}" class="text-dark" style="text-decoration: none;">{{question.user}}</a></p>
-        <div class="btn-group" role="group" aria-label="Basic example">
-          <button type="button btn-sm" class="btn btn-outline-dark">&#9650</button>
-          <button type="button btn-sm" class="btn btn-outline-dark">{{question.likes}}</button>
-          <button type="button btn-sm" class="btn btn-outline-dark">&#9660</button>
+
+        <div class="text-center text-dark">
+          <span style="text-light">🖤 {{question.likes}}</span>
+          <div class="btn-group" role="group">
+            <button type="button btn-sm" class="btn btn-outline-dark">⮟</button>
+            <button type="button btn-sm" class="btn btn-outline-dark">⮝</button>
+          </div>
         </div>
       </div>
       <div class="col-9">
-            <h3>  <a href="{% url "one_question" pk=question.id %}" class="text-dark d-inline-block text-truncate" style="text-decoration: none; max-width: 100%;">{{question.title}}</a>  </h3>
-            <p class="text-dark" style="">  {{question.text}} </p>
+            <h3><a href="{% url "one_question" pk=question.id %}" class="text-dark d-inline-block text-truncate" style="text-decoration: none; max-width: 100%;">{{question.title}}</a>  </h3>
+            <p class="text-dark">  {{question.text}} </p>
             <p>
               {% for tag in question.tags %}
                 <span class="bg-info rounded border-info text-brand-info px-2 pb-2 pt-1 "><a href="{% url "tag_page" name_of_tag=tag%}" class="text-dark"  style="text-decoration: none;" >{{tag}}</a></span>
@@ -27,22 +30,22 @@
       </div>    
 </div>
 
-{% for answer in answers %}
+<button class="btn btn-warning mb-2 invisible" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+    Ответить
+  </button>
+
+<div class="collapse show mb-2 justify-content-center" id="collapseExample">
+  <div class="row mb-2" >
+      <div class="col-12"><textarea class="form-control" rows="3" placeholder="Здесь вы можете ввести ответ на вопрос"></textarea></div>
+  </div>
+  <button class="btn btn-warning mb-2 visible" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+    Ответить
+  </button>
+</div>
+
+{% for answer in cards %}
     {% include "include/one_answer.html" %}
 {% endfor %}
+{% include "include/pagination.html" %}
 
 {% endblock content %}
-
-{% comment %} {% block content %}
-     <div class="row py-3 mb-2" >
-      <!-- <h1 id="strange-z" >  <a href="{% url "one_question" pk=question.id %}" >{{question.title}}</a>  </h1>
-      <p> {{question.text}} </p> -->
-      <div class="col-3">
-        <img src="{% static "img/avatars/def.jpg" %}" width="100%">
-        <p href="">{{question.user}}</p>
-      </div>
-      <div class="col-9 text-italic">
-          <p class="text-dark">  {{question.text}} img/{{user.avatar}}.jpg </p>
-      </div>
-  </div>
-{% endblock content %} {% endcomment %}

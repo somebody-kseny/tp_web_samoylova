@@ -5,9 +5,8 @@
 {% endblock content-header %}
 
 {% block content %}
-
-  {% for question in questions %}
+  {% for question in cards %}
     {% include "include/one_question.html" %}
   {% endfor %}
-
+  {% include "include/pagination.html" %}
 {% endblock content %}

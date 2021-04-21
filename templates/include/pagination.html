@@ -1,0 +1,14 @@
+
+<div class="raw justify-content-center pagination p-4">
+<span class="step-links">
+    <div class="btn-group" role="group" aria-label="Basic example">
+        {% if cards.has_previous %}
+    <a type="button btn-sm" class="btn btn-outline-secondary" href="?page={{ cards.previous_page_number }}">⮜</a>
+        {% endif %}
+    <a type="button btn-sm" class="btn btn-outline-secondary disabled" class="current">{{ cards.number }}</a>
+        {% if cards.has_next %}
+    <a type="button btn-sm" class="btn btn-outline-secondary" href="?page={{ cards.next_page_number }}">⮞</a>
+        {% endif %}
+    </div>
+</span>
+</div>
