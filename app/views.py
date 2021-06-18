@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
 
+from app.models import *
+
 def get_shown_text(str):
     if len(str) < 120:
         return str
@@ -36,14 +38,14 @@ answers = [
     } for idx in range(120)
 ]
 
-tags = [
-    {
-        'id': idx,
-        'name': f'tag{idx}',
-        'questions_id': [idx, idx+2, 5],
-    } for idx in range(8)
-]
-best_tags = tags[0:3]
+# tags = [
+#     {
+#         'id': idx,
+#         'name': f'tag{idx}',
+#         'questions_id': [idx, idx+2, 5],
+#     } for idx in range(8)
+# ]
+# best_tags = tags[0:3]
 
 users = [
     {
@@ -65,8 +67,8 @@ def typical_response(cards, request):
     return {
     'this_user': users[4],
     'cards': paginate(cards, request),
-    'best_tags': best_tags,
-    'best_users': best_users,
+    'best_tags': Tag.objects.best_tags(),
+    'best_users': Author.objects.order_by('rating')[:5]
     }
 
 # Create your views here.
@@ -83,14 +85,10 @@ def one_question(request, pk):
     return render(request, 'question.html', response)
 
 def tag_page(request, name_of_tag):
-    for tag in tags:
-        if (tag['name'] == name_of_tag):
-            questions_tag = []
-            for id in tag['questions_id']:
-                questions_tag.append(questions[id])
-            response = typical_response(questions_tag, request)
-            response.update({ 'tag': tag['name'] })
-            return render(request, 'tag.html', response)
+    if(Tag.objects.filter(word=name_of_tag)):
+        response = typical_response(Tag.objects.by_tag(name_of_tag), request)
+        response.update({ 'tag': tag['name'] })
+        return render(request, 'tag.html', response)
     return render(request, 'tag.html', {"questions": [], "tag": "нет такого тега"})
     
 def login(request):

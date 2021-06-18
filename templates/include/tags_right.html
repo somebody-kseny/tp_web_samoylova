@@ -1,13 +1,11 @@
 
-<div class="position-fixed ">
-
 <div class="row p-2 bg-secondary" >
     <p class="text-center">Популярные теги</p>
     <ul class="list-group text-truncate">
         {% for tag in best_tags %}
             <li>
                 <div class = "row rounded bg-info py-1 mb-2 mx-2 position-relative">
-                    <div class="col-9 text-truncate"> <a href="{% url "tag_page" name_of_tag=tag.name %}" class="text-dark stretched-link" style="text-decoration: none" > {{tag.name}} </a> </div>
+                    <div class="col-9 text-truncate"> <a href="{% url "tag_page" name_of_tag=tag.word %}" class="text-dark stretched-link" style="text-decoration: none" > {{tag.word}} </a> </div>
                     <div class="col-3"> <span class="badge badge-pill bg-light text-dark">{{tag.questions_id|length}}</span> </div>
                 </div>
             </li>
@@ -18,18 +16,16 @@
 
 <div class="row p-2 bg-secondary mt-2" >
 
-    <p class="text-center">Активные пользователи</p>
+    <p class="text-center pb-0">Активные пользователи</p>
 
     <ul class="list-group text-truncate">
         {% for user in best_users %}
             <li>
                 <div class = "row rounded bg-info py-1 mb-2 mx-2 position-relative">
-                    <div class="col-9 text-truncate"> <a href="{% url "user_question" pk=user.id %}" class="text-dark stretched-link" style="text-decoration: none" > {{user.name}} </a> </div>
+                    <div class="col-9 text-truncate"> <a href="{% url "user_question" pk=user.id %}" class="text-dark stretched-link" style="text-decoration: none" > {{user.user.username}} </a> </div>
                 </div>
             </li>
         {% endfor %} 
     </ul>
-
-</div>
 
 </div>
