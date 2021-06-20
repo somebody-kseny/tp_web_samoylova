@@ -5,12 +5,22 @@ from django.contrib.contenttypes.fields import ContentType
 from django.db import models
 from django.contrib.auth.models import User
 import time
+from django.db.models import Count
+from django.utils import timezone
+
+
+# from app.forms import *
 
 # Create your models here.
+
+LIKE = True
+DISLIKE = False
 
 class AuthorManager(models.Manager):
     def calc_rating(self):
         return self.annotate()
+    def get_best(self):
+        return Author.objects.order_by('?')[:7]
 
 class Author(models.Model):
     id = models.AutoField(primary_key=True)
@@ -29,18 +39,19 @@ class Author(models.Model):
 
 class QuestionManager(models.Manager):
     def calc_best(self):
-        return Question.objects.order_by(rating)[:5]
+        return Question.objects.order_by('rating')
     def calc_new(self):
-        return Question.objects.order_by(pub_date)[:5]
+        return Question.objects.order_by('id').reverse()
 
 class Question(models.Model):
     id = models.AutoField(primary_key=True)
-    # author=models.ForeignKey('Author', on_delete=models.CASCADE)
-    author_id = models.IntegerField
-    title = models.CharField(default = 'titleForQuestion', max_length=128)
-    text = models.TextField(default='myQuestion')
-    pub_date = models.DateTimeField('date published')
+    author=models.ForeignKey(Author, on_delete=models.CASCADE)
+    title = models.CharField(max_length=128)
+    text = models.TextField()
+    pub_date = models.DateTimeField( default=timezone.now )
 
+    likers=models.ManyToManyField(Author, related_name='liked_questions')
+    dislikers=models.ManyToManyField(Author, related_name='disliked_questions')
     rating = models.IntegerField(default=0, db_index=True)
 
     tags = models.ManyToManyField(
@@ -48,7 +59,7 @@ class Question(models.Model):
         related_query_name='question'
     )
     answers = models.ManyToManyField(
-        'Answer',  related_name='questions',
+        'Answer',  related_name='question',
         related_query_name='question'
     )
 
@@ -62,10 +73,9 @@ class Question(models.Model):
     objects = QuestionManager()
 
 class Answer(models.Model):
-    id = models.AutoField(primary_key=True)
-    author = models.ForeignKey('Author', on_delete=models.CASCADE)
+    author = models.ForeignKey('Author',default=1, on_delete=models.CASCADE)
     is_right = models.BooleanField(default=False)
-    text = models.TextField(default='I don\'t know, but...')
+    text = models.TextField()
     class Meta:
         verbose_name = "Ответ"
         verbose_name_plural = "Ответы"
@@ -74,9 +84,9 @@ class Answer(models.Model):
 
 class TagManager(models.Manager):
     def best_tags(self):
-        return Tag.objects.all()[:5]
+        return Tag.objects.annotate(am_of_q = Count('question')).order_by('am_of_q').reverse()[:7]
     def by_tag(self, tag_str):
-        return self.filter(word=tag_str).first().question.all().order_by('pub_date').reverse()
+        return self.filter(word=tag_str).first().questions.all().order_by('pub_date').reverse()
 
 
 class Tag(models.Model):
@@ -89,14 +99,3 @@ class Tag(models.Model):
         return self.word
     
     objects = TagManager()
-
-class Likes(models.Model):
-
-    likers = models.ManyToManyField(
-        'Author', related_name='likers',
-        related_query_name='liker'
-    )
-    dislikers = models.ManyToManyField(
-        'Author', related_name='dislikers',
-        related_query_name='disliker'
-    )

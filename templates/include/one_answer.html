@@ -2,33 +2,32 @@
 
   <div class="row pt-3 pb-0 px-3 row-eq-height border border-secondary">
       <div class="col-3 bg-light p-2">
-        <a href="{% url "user_question" pk=question.user_id %}"><img src="{% static "img/avatars/def.jpg" %}" style="width:100%" class="p-2"></a>
+        <a href="{% url "user_question" pk=answer.author.id %}"><img src="{% static "img/avatars/def.jpg" %}" style="width:100%" class="p-2"></a>
+        <p class="text-center text-truncate" style="max-width: 90%;"><a href="{% url "user_question" pk=question.author.id %}" class="text-dark" style="text-decoration: none;">{{answer.author.user.username}}</a></p>
       </div>
       <div class="col-9">
             <p class="text-dark">  {{answer.text}} </p>
-
       </div>    
   </div>
 
   <div class="row bg-secondary p-2 mb-2 d-flex justify-content-between">
-      <div class="col-3 text-center">
+      {% comment %} <div class="col-3 text-center">
         <row>
-          <span>🤍 {{question.likes}}</span>
+          <span>🤍 {{question.rating}}</span>
           <div class="btn-group" role="group">
             <button type="button btn-sm" class="btn btn-outline-light">⮟</button>
             <button type="button btn-sm" class="btn btn-outline-light">⮝</button>
           </div>
         </row>
       </div>
-      <div class="col-auto">
+      <div class="col-auto"> {% endcomment %}
 
           {% if answer.is_correct != False %}
                 <div class="form-check">
-                  <input type="checkbox" class="form-check-input color-info" id="exampleCheck1">
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
                   <label class="form-check-label" for="exampleCheck1">Верный ответ?</label>
                 </div>
           {% else %}
               <div>&#9745 верный ответ!</div>
           {% endif %}
-      </div>
   </div>

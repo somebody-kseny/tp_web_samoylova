@@ -1,4 +1,5 @@
 {% extends "include/base.html"%}
+{% load bootstrap4 %}
 
 {% block content-header %}
   Задайте свой вопрос
@@ -6,20 +7,16 @@
 
 {% block content %}
 <div class="row mb-2" >
-      <div class="col-3">Название вопроса</div>
-      <div class="col-9"><textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea></div>
-</div>
-<div class="row mb-2" >
-      <div class="col-3">Текст</div>
-      <div class="col-9"><textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea></div>
-</div>
-<div class="row mb-2" >
-      <div class="col-3">Добавьте теги</div>
-      <div class="col-9">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
-        <p class="text-danger d-none"><small>Теги - латиницей через запятую</small></p>
-        <button class="btn btn-lg btn-warning btn-block mt-4" type="submit">Задать вопрос!</button>
-      </div>
+
+<form novalidate class="form mt-5" action="{% url "ask" %}" method="post"> 
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+  {% buttons %}
+    <button class="btn btn-lg btn-warning btn-block my-3" type="submit">Задать вопрос!</button>
+  {% endbuttons %}
+</form>
+
 </div>
 
 {% endblock content %}

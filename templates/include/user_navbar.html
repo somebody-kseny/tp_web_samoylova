@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block auth_block %}
-        <a href="{% url "settings" %}" class="nav-link text-warning" aria-current="page">{{this_user.name}}</a>
-        <a href="{% url "settings" %}" ><img src="{% static "img/avatars/def.jpg" %}" height = "60" ></a>
+        <a href="{% url "profile" %}" class="nav-link text-warning" aria-current="page">{{request.user.username}}</a>
+        <a href="{% url "profile" %}" ><img src="{% static "img/avatars/def.jpg" %}" height = "60" ></a>
         <div class="row">
                 <div class="col-auto mx-4 ml-0 text-center">
-                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "settings" %}">Профиль</a>
-                        <a class="nav-link text-light py-0" aria-current="page">Выйти</a>
+                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "profile" %}">Профиль</a>
+                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "logout" %}?next={{request.path}}">Выйти</a>
                 </div>
         </div>
 {% endblock auth_block %}

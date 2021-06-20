@@ -1,4 +1,5 @@
 {% extends "include/base.html"%}
+{% load bootstrap4 %}
 
 {% block content-header %}
     Вход
@@ -6,6 +7,18 @@
 
 {% block content %}
 
+<div class="row mb-2" >
+<form novalidate class="form mt-5" action="{% url "login" %}" method="post"> 
+  <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button class="btn btn-lg btn-warning btn-block my-3" type="submit">Войти</button>
+  {% endbuttons %}
+</form>
+</div>
+
+{% comment %}
 <div class="row mb-2" >
       <div class="col-3"><label for="inputEmail" class="sr-only mb-3">Имя пользователя</label></div>
       <div class="col-auto">
@@ -20,7 +33,6 @@
         <p class="text-danger d-none"><small>Пароль неверный</small></p>
       </div>
 </div>
-
-<button class="btn btn-lg btn-warning btn-block mb-2" type="submit">Войти!</button>
+{% endcomment %}
 
 {% endblock content %}

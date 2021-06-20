@@ -3,7 +3,7 @@
 {% block auth_block %}
         <div class="row">
                 <div class="col-auto mx-4 ml-0 text-center">
-                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "login" %}">Войти</a>
+                        <a class="nav-link text-light py-0" aria-current="page" href="{% url "login" %}?next={{request.path}}">Войти</a>
                         <a class="nav-link text-light py-0" aria-current="page" href="{% url "signup" %}">Зарегестрироваться</a>
                 </div>
         </div>

@@ -1,0 +1,32 @@
+{% extends "include/base.html"%}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content-header %}
+    Редактирование профиля
+{% endblock content-header %}
+
+{% block content %}
+<div class="row" >
+      <div class="col-3"><label for="inputEmail" class="sr-only mb-3">Адрес e-mail</label></div>
+      <div class="col-auto"><p>{{request.user.email}}</p></div>
+</div>
+      
+<div class="row" >
+      <div class="col-3"><label for="inputNick" class="sr-only">Имя пользователя</label></div>
+      <div class="col-auto"><p>{{request.user.username}}</p></div>
+</div>
+
+<p>Ниже вы можете изменить пароль (смена аватарки не поддерживается)</p>
+<p>При смене пароля теряется авторизация</p>
+
+<div class="row" >
+<form novalidate class="form mt-5" action="{% url "edit" %}" method="post"> 
+  {% csrf_token %}
+  {% bootstrap_form form %}
+  {% buttons %}
+    <button class="btn btn-lg btn-warning btn-block my-3" type="submit">Принять изменения</button>
+  {% endbuttons %}
+</form>
+</div>
+{% endblock content %}
